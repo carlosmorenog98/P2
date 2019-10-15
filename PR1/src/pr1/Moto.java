@@ -11,6 +11,7 @@ public class Moto
     private String modelo;
     private int cc;
     private int coste;
+    private int coste_extra = 0;
     boolean ocupada = false;
     private String matricula;
     private Socio socio; //Socio al que va a estar vinculada
@@ -25,13 +26,13 @@ public class Moto
     @Override
     public String toString()
     {
-        return "MOTO\nID Moto: " + id_moto + "\n" + "Modelo: " + modelo + "\n" + "Cilindrada: " + cc + "\n" + "Coste: " + coste + "\n" + "Matricula: " + matricula + "\nIDSocio Asociado: " + socio.getId_Socio() + "\n";
+        return "MOTO\nID Moto: " + id_moto + "\n" + "Modelo: " + modelo + "\n" + "Cilindrada: " + cc + "\n" + "Coste: " + coste + "\n" + "Costes Extra: " + coste_extra + "\nMatricula: " + matricula + "\nIDSocio Asociado: " + socio.getId_Socio() + "\n";
     }
     
     //Funcion para mostrar los atributos de la moto, creada ya que no sabemos por qué el toString no muestra nada
     public void mostrar()
     {
-        System.out.println("MOTO\nID Moto: " + id_moto + "\n" + "Modelo: " + modelo + "\n" + "Cilindrada: " + cc + "\n" + "Coste: " + coste + "\n" + "Matricula: " + matricula + "\nIDSocio Asociado: " + socio.getId_Socio() + "\n");
+        System.out.println("MOTO\nID Moto: " + id_moto + "\n" + "Modelo: " + modelo + "\n" + "Cilindrada: " + cc + "\n" + "Coste: " + coste + "\n" + "Costes Extra: " + coste_extra + "\nMatricula: " + matricula + "\nIDSocio Asociado: " + socio.getId_Socio() + "\n");
     }
     
     //Funcion que crea una matrícula siguiendo el formato real
@@ -95,6 +96,18 @@ public class Moto
   public int getCoste()
   {
       return coste;
+  }
+  
+  //Funcion que define los costos extras de la moto
+  public void setCoste_Extra(int coste_extra)
+  {
+      this.coste_extra += coste_extra;
+  }
+  
+  //Funcion que devuelve el precio de la moto 
+  public int getCoste_Extra()
+  {
+      return coste_extra;
   }
   
   //Funcion que define los CC de la moto

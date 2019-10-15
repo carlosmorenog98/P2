@@ -29,7 +29,7 @@ public class Inicio
         System.out.println("Introduce el importe maximo que puede disponer cada miembro: ");
         precio_total = keyboard.next();
         
-        while(opcion != 7)
+        while(opcion != 8)
         {
             opcion = imprimirMenu();
             
@@ -59,6 +59,10 @@ public class Inicio
                     mostrarCesiones();
                     break;
                 case 7:
+                    System.out.println("Incrementar otros gastos a una moto: ");
+                    incrementarGastos(keyboard);
+                    break;
+                case 8:
                     System.out.println("Salir: ");
                     System.exit(0);
                     break;
@@ -76,7 +80,8 @@ public class Inicio
                            "4 – Listar en pantalla los miembros con motos en posesión.\n" +
                            "5 – Listar todas las motos.\n" +
                            "6 – Mostrar las cesiones realizadas.\n" +
-                           "7 – Salir.\n");
+                           "7 - Incrementar otros gastos a una moto.\n" +
+                           "8 – Salir.\n");
         int opcion = keyboard.nextInt();
         return opcion;
     }
@@ -98,6 +103,30 @@ public class Inicio
         System.out.println("Listado Socios:" + socios.toString());
     }
 
+    public void incrementarGastos(Scanner keyboard)
+    {
+        String id_Moto, costos_extra;
+        int c = 0;
+        do
+        {
+            System.out.println("Introduce el id de la moto a la que le desea incrementar los gastos: ");
+            id_Moto = keyboard.next();
+        }while(!validarIDMoto(id_Moto));
+        
+        for(Moto m: motos)
+        {
+            int id2 = Integer.parseInt(id_Moto);
+            if(id2 == (m.getID()))
+            {
+                System.out.println("Introduce los gastos extra: ");
+                costos_extra = keyboard.next();
+                c = Integer.parseInt(costos_extra);
+            }
+        }
+        
+        
+    }
+    
     //Funcion que comprueba que un nombre esté bien escrito, usando para ello una gramática
     public boolean validarNombre(String nombre) 
     {
@@ -114,7 +143,7 @@ public class Inicio
     {
         Socio socio;
         Moto moto;
-        String modelo, cc, precio, id;
+        String modelo, cc, precio, id, precio_extra;
         boolean ok = false;      
         
         do
@@ -135,6 +164,12 @@ public class Inicio
             precio = keyboard.next();
         }while(!validarCoste(precio)); //Comprobamos que el precio está excrito correctamente comprobando la gramática  
         
+        do
+        {
+            System.out.println("Introduce sus costes extra: ");
+            precio_extra = keyboard.next();
+        }while(!validarCoste(precio_extra)); //Comprobamos que el precio está excrito correctamente comprobando la gramática  
+        
         while(ok == false)
         {
             do
@@ -152,6 +187,7 @@ public class Inicio
                     moto = new Moto(s, motos.size()+1);
                     moto.setCC(Integer.parseInt(cc));
                     moto.setCoste(Integer.parseInt(precio));
+                    moto.setCoste_Extra(Integer.parseInt(precio_extra));
                     moto.setModelo(modelo);
                     ok = true;
                     motos.add(moto);
