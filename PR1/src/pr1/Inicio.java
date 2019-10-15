@@ -2,6 +2,7 @@ package pr1;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -29,7 +30,7 @@ public class Inicio
         System.out.println("Introduce el importe maximo que puede disponer cada miembro: ");
         precio_total = keyboard.next();
         
-        while(opcion != 8)
+        while(opcion != 9)
         {
             opcion = imprimirMenu();
             
@@ -63,6 +64,10 @@ public class Inicio
                     incrementarGastos(keyboard);
                     break;
                 case 8:
+                    System.out.println("Eliminar a un socio: ");
+                    eliminarSocio(keyboard);
+                    break;
+                case 9:
                     System.out.println("Salir: ");
                     System.exit(0);
                     break;
@@ -81,6 +86,7 @@ public class Inicio
                            "5 – Listar todas las motos.\n" +
                            "6 – Mostrar las cesiones realizadas.\n" +
                            "7 - Incrementar otros gastos a una moto.\n" +
+                           "8 - Eliminar un socio.\n" +
                            "8 – Salir.\n");
         int opcion = keyboard.nextInt();
         return opcion;
@@ -103,6 +109,69 @@ public class Inicio
         System.out.println("Listado Socios:" + socios.toString());
     }
 
+    public void eliminarSocio(Scanner keyboard) {
+        try{
+            Socio s = pedirSocio(keyboard);
+            if(!s.getMotos().isEmpty()){
+                registrarCesion(s);
+            }
+            socios.remove(s);
+            System.out.print("Se ha podido eliminar con éxito\n\n");
+        }catch(Exception e){
+            System.out.println("No se ha poidido eliminar el miembro \n\n");
+        }
+    }
+    
+    public Socio pedirSocio(Scanner keyboard) {
+        Socio so = null;
+        boolean ok = false;
+        do{
+            System.out.print("Ingresar el id del socio: ");
+            int id = Integer.parseInt(keyboard.next());
+            for(Socio s: socios){
+                if(s.getId_Socio() == id)
+                {
+                    ok = true;
+                    so = s;
+                    break;
+                }
+            }
+        }while(!ok);
+        
+        return so;
+    }
+    
+    public void registrarCesion(Socio s1)
+    {
+        Scanner keyboard = new Scanner(System.in);
+        String id2, id3;
+        Socio socio = null;
+        
+        for(Moto m: motos)
+        {
+            System.out.println(m.toString());
+            
+            do
+            {
+                System.out.println("Introduce el id del socio al que cederle la moto: ");
+                id2 = keyboard.next();
+            }while(!validarID(id2));
+            
+            for(Socio s: socios)
+            {
+                if(validarID(id2))
+                {
+                    socio = s;
+                }
+            }
+            if((socio.getPrecios()+m.getCoste()) > Integer.parseInt(precio_total)) //Si no se puede ya que no le cabe la moto, o sea que se excede el presupuesto
+            {
+                    realizarCesion(s1, socio, m);
+            }
+            
+        }
+    }
+    
     public void incrementarGastos(Scanner keyboard)
     {
         String id_Moto, costos_extra;
