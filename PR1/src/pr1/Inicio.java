@@ -16,6 +16,7 @@ public class Inicio
     private ArrayList<Cesion> cesiones; //Vector de cesiones del programa en el que almacenaremos todas las cesiones que se realizan
     private Socio s_1, s_2;
     private Moto m_1;
+    public String precio_total;
     
     public Inicio()
     {
@@ -24,6 +25,9 @@ public class Inicio
         cesiones = new ArrayList<Cesion>();
         Scanner keyboard = new Scanner(System.in); //Leemos la opción desde la consola 
         int opcion = 0;
+        
+        System.out.println("Introduce el importe maximo que puede disponer cada miembro: ");
+        precio_total = keyboard.next();
         
         while(opcion != 7)
         {
@@ -143,7 +147,7 @@ public class Inicio
             
             for(Socio s: socios)
             {
-                if(id2 == (s.getId_Socio()) && ((s.getPrecios()+Integer.parseInt(precio)) <= 6000)) //Se comprueba si corresponde el id con algún socio y puede tener esa moto ya que no excede el límite de precio
+                if(id2 == (s.getId_Socio()) && ((s.getPrecios()+Integer.parseInt(precio)) <= Integer.parseInt(precio_total))) //Se comprueba si corresponde el id con algún socio y puede tener esa moto ya que no excede el límite de precio
                 {
                     moto = new Moto(s, motos.size()+1);
                     moto.setCC(Integer.parseInt(cc));
@@ -290,7 +294,7 @@ public class Inicio
         
             if(validado == true)
             {
-                if((s_2.getPrecios()+m_1.getCoste()) > 6000) //Si no se puede ya que no le cabe la moto, o sea que se excede el presupuesto
+                if((s_2.getPrecios()+m_1.getCoste()) > Integer.parseInt(precio_total)) //Si no se puede ya que no le cabe la moto, o sea que se excede el presupuesto
                 {
                     validado = false;
                 }
