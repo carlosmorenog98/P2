@@ -68,6 +68,10 @@ public class Inicio
                     eliminarSocio(keyboard);
                     break;
                 case 9:
+                    System.out.println("Mostrar a los miembros con más cesiones a su cargo: ");
+                    miembrosMasCesiones();
+                    break;
+                case 10:
                     System.out.println("Salir: ");
                     System.exit(0);
                     break;
