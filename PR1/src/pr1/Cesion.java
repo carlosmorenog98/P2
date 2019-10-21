@@ -29,4 +29,9 @@ public class Cesion
     {
         System.out.println("CESION\nSocio que cede: " + s1.toString() + "\n" + "Socio al que se le cede la moto: " + s2.toString() + "\n" + "Moto que se cede: " + moto.toString() + "\n");
     }
+    
+    public Moto getMoto()
+    {
+        return moto;
+    }
 }

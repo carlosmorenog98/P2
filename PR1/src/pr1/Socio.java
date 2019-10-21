@@ -12,6 +12,7 @@ public class Socio
     private int id_socio;
     private int precio_motos = 0;
     private ArrayList<Moto> motos; //Vector de motos que tiene el propio cliente
+    private ArrayList<Cesion> cesiones; //Vector de motos que tiene el propio cliente
     
     public Socio(String nombre, int id_socio)
     {
@@ -97,5 +98,17 @@ public class Socio
         }
         
         return precio_motos;
+    }
+    
+    public void addCesion(Cesion c) {
+        cesiones.add(c);
+    }
+    
+    public ArrayList<Cesion> getCesiones() {
+        return cesiones;
+    }
+    
+    public int getNumCesiones() {
+        return cesiones.size();
     }
 }

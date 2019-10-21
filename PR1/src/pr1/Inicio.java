@@ -92,6 +92,39 @@ public class Inicio
         return opcion;
     }
 
+    public void miembrosMasCesiones() 
+    {
+        ArrayList<Socio> aux = new ArrayList();
+        ArrayList<Cesion> aux2 = new ArrayList();
+        int num = 0;
+        int max = 0;
+        
+        for(Socio s: socios)
+        {
+            num = s.getNumCesiones();
+            if(num >= max)
+            {
+                max = num;
+            }   
+        }
+        for(Socio s: socios)
+        {
+            num = s.getNumCesiones();
+            if(num == max)
+            {
+                aux.add(s);
+            }
+        }
+        for(Socio s: aux)
+        {
+            aux2 = s.getCesiones();
+            for(Cesion c: aux2)
+            {
+                c.getMoto().mostrar();
+            }
+        }
+    }
+    
     //Función que da de alta a un socio
     public void altaSocio(Scanner keyboard) 
     {
@@ -410,6 +443,7 @@ public class Inicio
         //System.out.println("El ID del que cede: " + s_1.getId_Socio() + "\nEl ID del socio al que se le quiere ceder: " + s_2.getId_Socio());
         realizarCesion(s_1, s_2, m_1);
         Cesion cesion = new Cesion(s_1, s_2, m_1);
+        s_1.addCesion(cesion);
         System.out.println("Cesion realizada.\n");
         cesiones.add(cesion);
     }
